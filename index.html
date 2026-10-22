@@ -165,11 +165,6 @@ header.site::before {
   font-size: clamp(2.5rem, 6.4vw, 5.25rem); line-height: 1.02; letter-spacing: -.04em; text-wrap: balance;
 }
 .hero h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold); letter-spacing: -.02em; font-size: 1.1em; }
-.hero h1 .chip {
-  display: inline-block; vertical-align: middle; width: 1.55em; height: .72em; margin-inline: .08em; border-radius: 999px;
-  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); position: relative; top: -.04em;
-}
-.hero h1 .chip svg { width: 100%; height: 100%; fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; padding: .12em .2em; }
 .hero p.lead { margin-top: 1.75rem; font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--on-navy-muted); font-weight: 300; max-width: 34rem; }
 .hero-buttons { margin-top: 2.5rem; }
 .hero-mark { display: grid; place-items: center; }
@@ -406,8 +401,7 @@ footer { background: var(--navy-deep); color: var(--on-navy); padding-top: clamp
   .nav-links.open li:nth-child(2) { transition-delay: 40ms; } .nav-links.open li:nth-child(3) { transition-delay: 80ms; }
   .nav-links.open li:nth-child(4) { transition-delay: 120ms; } .nav-links.open li:nth-child(5) { transition-delay: 160ms; }
   .nav-links.open li:nth-child(6) { transition-delay: 200ms; } .nav-links.open li:nth-child(7) { transition-delay: 240ms; }
-  .hero h1 .chip { display: none; }
-}
+  }
 @media (max-width: 860px) {
   .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
   .hero-mark { order: 2; }
@@ -476,7 +470,7 @@ footer { background: var(--navy-deep); color: var(--on-navy); padding-top: clamp
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="badge">ETSI · Universidad de Sevilla</span>
-      <h1>Impulsando el futuro de la <span class="chip" aria-hidden="true"><svg viewBox="0 0 64 32" preserveAspectRatio="none"><path d="M2 16C12 -2 22 -2 32 16S52 34 62 16"/></svg></span> <em>energía</em></h1>
+      <h1>Impulsando el futuro de la <em>energía</em></h1>
       <p class="lead">Asociación de estudiantes orientada a complementar la formación técnica, fomentar la divulgación científica y conectar el talento universitario con el sector energético.</p>
       <div class="hero-buttons">
         <a href="#inscripcion" class="btn btn-primary"><svg class="icon" aria-hidden="true"><use href="#i-userplus"/></svg> Únete a GEENIUS</a>
