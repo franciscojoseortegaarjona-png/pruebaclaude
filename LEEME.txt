@@ -1,0 +1,35 @@
+WEB GEENIUS - Instrucciones
+
+Contenido de la carpeta:
+- index.html ........ la web
+- logo-geenius-claro.png ... logo oficial blanco y amarillo para fondos oscuros
+- logo-geenius.png ......... logo oficial GEENIUS con colores originales
+- logo-simplificado.png ... símbolo de fondo del hero (basado en logo oficial 2.png)
+- logo.png ............. logo anterior, conservado sin uso
+- 1.jpg a 14.jpg ...... imágenes del calendario (orden cronológico)
+- noticias.json ..... actualidad del sector energético (se actualiza sola)
+- scripts/update_renewable_news.py y .github/workflows/update-renewable-news.yml ... actualización diaria de noticias
+- CNAME ............. dominio asociaciongeenius.es
+
+Cómo publicarla:
+1. Subir TODO el contenido (incluida la carpeta oculta .github) a la raíz del repositorio de GitHub, rama main.
+2. En GitHub: Settings > Pages, publicar desde la rama main.
+3. En Settings > Actions > General > Workflow permissions, elegir "Read and write permissions".
+   Sin esto, las noticias no se podrán actualizar solas.
+4. Para probar la actualización de noticias: pestaña Actions > "Actualizar actualidad del sector energético" > Run workflow.
+
+Para cambiar el calendario: sustituir 1.jpg ... 14.jpg manteniendo los nombres.
+Si se añaden o quitan imágenes, hay que editar la lista SLIDES en index.html.
+
+La sección "Novedades" está reservada para actividades propias de GEENIUS. Las noticias externas aparecen en "Actualidad de la Energía", con prioridad para El Periódico de la Energía y PV Magazine España como fuente complementaria. La cabecera y el pie usan el logo oficial transparente de Marketing.
+
+--- Rediseño (octubre 2026) ---
+- thumbs/ ........... miniaturas nítidas (480x270) del carrusel; si cambias 1.jpg...14.jpg, regenera también thumbs/N.jpg.
+- Las diapositivas se muestran completas (sin recortes) y se pueden ampliar a tamaño original pulsando sobre ellas.
+- Tipografías: Geist, Geist Mono e Instrument Serif (Google Fonts).
+
+--- Gestor de Novedades (Decap CMS) ---
+- admin/index.html y admin/config.yml: panel de edición en https://asociaciongeenius.es/admin/
+- data/novedades.json: lo escribe el CMS y lo lee la web (sección Novedades).
+- images/novedades/: fotos subidas desde el CMS.
+- Antes de usarlo, edita admin/config.yml: repo y base_url (proxy OAuth).

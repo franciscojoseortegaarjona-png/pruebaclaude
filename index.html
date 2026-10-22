@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>GEENIUS - Asociación de Estudiantes de Energía | ETSI Sevilla</title>
+<meta name="description" content="GEENIUS es la asociación de estudiantes de energía de la ETSI de la Universidad de Sevilla: formación práctica, divulgación y networking profesional.">
+<meta name="theme-color" content="#06204a">
+<link rel="icon" href="logo-simplificado.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* Sistema visual: "Taste Standard" del proyecto (DESIGN.md) sobre la identidad GEENIUS.
+   Neutros tintados de azul (un solo sistema de grises), azul ETSI + amarillo rayo como único acento,
+   Geist para titulares y texto, Instrument Serif solo como contrapunto editorial, Geist Mono para metadatos.
+   Movimiento: curvas y duraciones de STANDARDS.md / AUDIT.md (solo transform y opacity, sin transition: all). */
+:root {
+  --navy: #0b336a;
+  --navy-deep: #06204a;
+  --gold: #fcbd15;
+  --gold-ink: #7a5600;
+  --bg: #f6f7fa;
+  --surface: #ffffff;
+  --surface-2: #eceff5;
+  --ink: #0e1a2f;
+  --head: #0b2a58;
+  --muted: #566277;
+  --line: rgba(14, 26, 47, .1);
+  --focus: #0b336a;
+  --on-navy: #eef3ff;
+  --on-navy-muted: #a9b9d6;
+  --shadow: 0 20px 40px -15px rgba(11, 42, 88, .12);
+  --radius-xl: clamp(1.5rem, 3vw, 2.5rem);
+  --radius-lg: clamp(1.25rem, 2.2vw, 1.75rem);
+  --display: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --body: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', serif;
+  --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --gutter-l: max(1.25rem, env(safe-area-inset-left, 0px));
+  --gutter-r: max(1.25rem, env(safe-area-inset-right, 0px));
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --ease-drawer: cubic-bezier(.32, .72, 0, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #08101f; --surface: #0f1b33; --surface-2: #14233f; --ink: #e6ecf8; --head: #f2f6ff;
+    --muted: #9fb0cc; --line: rgba(230, 236, 248, .1); --gold-ink: #fcbd15; --focus: #fcbd15;
+    --shadow: 0 20px 40px -15px rgba(0, 0, 0, .55);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #08101f; --surface: #0f1b33; --surface-2: #14233f; --ink: #e6ecf8; --head: #f2f6ff;
+  --muted: #9fb0cc; --line: rgba(230, 236, 248, .1); --gold-ink: #fcbd15; --focus: #fcbd15;
+  --shadow: 0 20px 40px -15px rgba(0, 0, 0, .55);
+  color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html:has(dialog[open]) { overflow: hidden; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+.hero, .band, .join, footer, header.site, dialog { --focus: var(--gold); }
+.icon { width: 1.25em; height: 1.25em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.wrap { width: 100%; max-width: 1400px; margin: 0 auto; padding-left: max(var(--gutter-l), 1rem); padding-right: max(var(--gutter-r), 1rem); }
+@media (min-width: 768px) { .wrap { padding-left: max(var(--gutter-l), 2rem); padding-right: max(var(--gutter-r), 2rem); } }
+@media (min-width: 1200px) { .wrap { padding-left: 4rem; padding-right: 4rem; } }
+section[id] { scroll-margin-top: 6rem; }
+.section { padding-block: clamp(3rem, 8vw, 6.5rem); }
+.section + .section { padding-top: 0; }
+
+/* Etiquetas y titulares de sección */
+.eyebrow {
+  font-family: var(--mono); font-weight: 500; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold-ink); display: inline-flex; align-items: center; gap: .75rem; margin-bottom: 1.1rem;
+}
+.eyebrow::before { content: ""; width: 1.75rem; height: 2px; background: var(--gold); }
+.section-head { max-width: 46rem; margin-bottom: clamp(2rem, 4.5vw, 3.5rem); }
+.section-head h2, .h2 {
+  font-family: var(--display); font-weight: 600; color: var(--head);
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem); line-height: 1.06; letter-spacing: -.035em; text-wrap: balance;
+}
+.section-head p { margin-top: 1.1rem; color: var(--muted); max-width: 38rem; }
+
+/* Cabecera flotante */
+header.site { position: fixed; top: .75rem; left: var(--gutter-l); right: var(--gutter-r); max-width: 1320px; margin-inline: auto; z-index: 100; height: 4rem; }
+header.site::before {
+  content: ""; position: absolute; inset: 0; border-radius: 999px; z-index: -1;
+  background: color-mix(in srgb, var(--navy-deep) 84%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,.1); box-shadow: 0 16px 32px -16px rgba(6,32,74,.55);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; height: 100%; padding-inline: 1.25rem .5rem; }
+.brand { display: flex; align-items: center; text-decoration: none; min-height: 44px; }
+.brand img { height: 2.7rem; width: auto; transition: transform 200ms var(--ease-out); }
+.nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+.nav-links a { color: var(--on-navy); text-decoration: none; font-weight: 500; font-size: .92rem; position: relative; padding-block: .5rem; transition: color 160ms ease; }
+.nav-links a:not(.btn-nav)::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: .1rem; height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left; transition: transform 240ms var(--ease-out);
+}
+.btn-nav {
+  background: var(--gold); color: var(--navy-deep) !important; font-weight: 600 !important; font-size: .92rem;
+  padding: .7rem 1.35rem !important; border-radius: 999px; min-height: 44px; display: inline-flex; align-items: center;
+  transition: transform 160ms var(--ease-out), background-color 160ms ease;
+}
+.btn-nav:active { transform: scale(.97); }
+.menu-btn {
+  display: none; align-items: center; gap: .55rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); color: #fff;
+  min-height: 44px; padding: 0 1rem 0 .85rem; border-radius: 999px; cursor: pointer; font-weight: 500; font-size: .92rem;
+  transition: transform 160ms var(--ease-out), background-color 160ms ease;
+}
+.menu-btn:active { transform: scale(.97); }
+.menu-btn .icon { width: 1.3rem; height: 1.3rem; }
+.menu-btn .i-close { display: none; }
+.menu-btn[aria-expanded="true"] .i-open { display: none; }
+.menu-btn[aria-expanded="true"] .i-close { display: block; }
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .65rem; text-decoration: none; font-weight: 600; font-size: 1rem;
+  min-height: 3.25rem; padding: .85rem 1.75rem; border-radius: 999px; border: 0; cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 160ms ease, color 160ms ease;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--gold); color: var(--navy-deep); }
+.btn .icon { transition: transform 240ms var(--ease-out); }
+
+/* Hero: dos zonas separadas (texto | logo) y la onda trifásica en su propia franja inferior */
+.hero {
+  position: relative; isolation: isolate; overflow: hidden; color: var(--on-navy);
+  min-height: 100dvh; display: grid; grid-template-rows: 1fr auto;
+  background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 100%);
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(180deg, #000 0%, transparent 80%); -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 80%);
+}
+.hero-grid {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center;
+  padding-top: clamp(7.5rem, 13vw, 10rem); padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+.badge {
+  display: inline-flex; align-items: center; gap: .65rem; margin-bottom: 1.75rem;
+  font-family: var(--mono); font-weight: 500; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid rgba(252,189,21,.38); border-radius: 999px; padding: .5rem 1rem;
+}
+.badge::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--gold); animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .45; transform: scale(.8); } }
+.hero h1 {
+  font-family: var(--display); font-weight: 600; color: #fff;
+  font-size: clamp(2.5rem, 6.4vw, 5.25rem); line-height: 1.02; letter-spacing: -.04em; text-wrap: balance;
+}
+.hero h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold); letter-spacing: -.02em; font-size: 1.1em; }
+.hero h1 .chip {
+  display: inline-block; vertical-align: middle; width: 1.55em; height: .72em; margin-inline: .08em; border-radius: 999px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); position: relative; top: -.04em;
+}
+.hero h1 .chip svg { width: 100%; height: 100%; fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; padding: .12em .2em; }
+.hero p.lead { margin-top: 1.75rem; font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--on-navy-muted); font-weight: 300; max-width: 34rem; }
+.hero-buttons { margin-top: 2.5rem; }
+.hero-mark { display: grid; place-items: center; }
+.mark-card { display: grid; place-items: center; animation: float 7s ease-in-out infinite; }
+.mark-card img { height: clamp(18rem, 62dvh, 34rem); width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 24px 30px rgba(0,0,0,.28)); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.phases { display: block; width: 100%; height: clamp(4.5rem, 9vw, 7.5rem); pointer-events: none; }
+.phases path { fill: none; stroke-width: 2.2; vector-effect: non-scaling-stroke; }
+.phases .a { stroke: var(--gold); opacity: .85; }
+.phases .b { stroke: #fff; opacity: .35; }
+.phases .c { stroke: #7fa6e6; opacity: .5; }
+.phases g { animation: drift 18s linear infinite; }
+@keyframes drift { to { transform: translateX(-720px); } }
+
+/* Quiénes somos: afirmación editorial a gran escala */
+.about { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.about .section-head { margin-bottom: 0; }
+.statement { padding-top: .35rem; }
+.statement h3 { font-family: var(--mono); font-weight: 500; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+.statement p { font-family: var(--display); font-weight: 500; font-size: clamp(1.7rem, 3.5vw, 3.1rem); line-height: 1.14; letter-spacing: -.03em; color: var(--head); text-wrap: pretty; }
+.statement p em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold-ink); letter-spacing: -.01em; }
+
+/* Qué hacemos: bento asimétrico */
+.bento { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1.25rem; }
+.card {
+  display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl);
+  padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--shadow);
+}
+.card .idx { font-family: var(--mono); font-size: .8125rem; letter-spacing: .08em; color: var(--muted); margin-bottom: auto; padding-bottom: 2rem; }
+.card .tile { width: 3.25rem; height: 3.25rem; border-radius: 1rem; background: var(--navy); color: var(--gold); display: grid; place-items: center; margin-bottom: 1.5rem; }
+.card .tile .icon { width: 1.5rem; height: 1.5rem; }
+.card h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.4rem, 2.2vw, 1.75rem); line-height: 1.12; letter-spacing: -.03em; color: var(--head); margin-bottom: .75rem; }
+.card p { color: var(--muted); font-size: 1rem; max-width: 34rem; }
+.card.feature { grid-row: span 2; background: linear-gradient(165deg, var(--navy) 0%, var(--navy-deep) 100%); border-color: transparent; color: var(--on-navy); min-height: 26rem; }
+.card.feature .idx { color: var(--on-navy-muted); }
+.card.feature .tile { background: var(--gold); color: var(--navy-deep); width: 4rem; height: 4rem; border-radius: 1.25rem; }
+.card.feature .tile .icon { width: 1.9rem; height: 1.9rem; }
+.card.feature h3 { color: #fff; font-size: clamp(1.9rem, 3.4vw, 2.75rem); line-height: 1.04; }
+.card.feature p { color: var(--on-navy-muted); font-size: 1.0625rem; }
+
+/* Novedades */
+.activity-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1.25rem; }
+.activity-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 1.5rem; }
+.activity-panel h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.15; letter-spacing: -.03em; color: var(--head); }
+.activity-empty[hidden] { display: none; }
+.activity-list { display: grid; gap: 1rem; }
+.activity-list:empty { display: none; }
+.activity-card { display: grid; gap: 0; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); opacity: 0; transform: translateY(10px); animation: rise 360ms var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 60ms); }
+.activity-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.activity-body { display: grid; gap: .4rem; padding: 1.1rem 1.25rem 1.25rem; }
+.activity-body time { font-family: var(--mono); font-weight: 500; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-ink); }
+.activity-body h4 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; line-height: 1.2; letter-spacing: -.02em; color: var(--head); }
+.activity-body p { color: var(--muted); font-size: .98rem; white-space: pre-line; }
+.activity-empty { display: flex; gap: 1.1rem; align-items: flex-start; padding: 1.25rem; border: 1.5px dashed var(--line); border-radius: var(--radius-lg); color: var(--muted); font-size: .98rem; flex: 1; }
+.activity-empty .glyph { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--surface-2); color: var(--head); display: grid; place-items: center; flex: none; }
+.activity-empty .glyph .icon { width: 1.3rem; height: 1.3rem; }
+
+/* Actualidad de la energía: titular destacado + dos secundarios */
+.news-status { display: flex; align-items: center; gap: .65rem; color: var(--muted); font-family: var(--mono); font-size: .8125rem; margin-bottom: 1.5rem; }
+.news-status::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--gold); flex: none; }
+.news-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.25rem; }
+.news-card {
+  position: relative; display: flex; flex-direction: column; gap: 1rem; min-height: 14rem; padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-xl); box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(10px); animation: rise 360ms var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 60ms);
+}
+.news-card:first-child { grid-row: span 2; background: var(--navy); border-color: transparent; color: var(--on-navy); justify-content: flex-end; min-height: 22rem; }
+.news-card:first-child .news-source { color: var(--gold); }
+.news-card:first-child h3 { color: #fff; font-size: clamp(1.5rem, 2.8vw, 2.25rem); line-height: 1.1; }
+.news-card:first-child time { color: var(--on-navy-muted); border-color: rgba(255,255,255,.18); }
+.news-card:first-child time .icon { color: var(--gold); }
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
+.news-source { font-family: var(--mono); font-weight: 500; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-ink); }
+.news-card h3 { font-family: var(--display); font-weight: 600; font-size: 1.2rem; line-height: 1.22; letter-spacing: -.02em; color: var(--head); text-wrap: pretty; }
+.news-card h3 a { text-decoration: none; }
+.news-card h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.news-card time { margin-top: auto; display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: .88rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.news-card time .icon { color: var(--head); transition: transform 240ms var(--ease-out); }
+.news-card:active { transform: scale(.99); }
+/* Esqueleto de carga con el mismo molde que las tarjetas */
+.skeleton { animation: none; opacity: 1; transform: none; overflow: hidden; }
+.skeleton::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--ink) 7%, transparent) 50%, transparent 80%); transform: translateX(-100%); animation: shimmer 1.4s ease-in-out infinite; }
+.skeleton:first-child::after { background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.12) 50%, transparent 80%); }
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+/* Calendario */
+.band { background: linear-gradient(170deg, var(--navy-deep), var(--navy)); color: var(--on-navy); }
+.band .eyebrow { color: var(--gold); }
+.band .section-head h2 { color: #fff; }
+.band .section-head p { color: var(--on-navy-muted); }
+.carousel { max-width: 1160px; margin: 0 auto; }
+.stage { border-radius: var(--radius-lg); overflow: hidden; background: #fff; box-shadow: 0 40px 80px -30px rgba(0,0,0,.6); touch-action: pan-y; }
+.zoom { display: block; width: 100%; border: 0; padding: 0; background: none; cursor: zoom-in; }
+.zoom img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; transition: opacity 150ms var(--ease-out), filter 150ms var(--ease-out); }
+.zoom img.fading { opacity: .6; filter: blur(2px); }
+.caption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem 2rem; margin-top: 1.5rem; }
+.caption-text { display: grid; gap: .35rem; min-width: 0; }
+.caption strong { font-family: var(--display); font-weight: 600; font-size: clamp(1.3rem, 2.2vw, 1.75rem); letter-spacing: -.03em; line-height: 1.15; color: #fff; }
+.caption span { font-family: var(--mono); font-weight: 500; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.controls { display: flex; align-items: center; gap: .75rem; }
+.nav-btn {
+  width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid rgba(255,255,255,.28); cursor: pointer; background: transparent; color: #fff; display: grid; place-items: center;
+  transition: transform 160ms var(--ease-out), background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.nav-btn:active { transform: scale(.94); }
+.nav-btn .icon { width: 1.25rem; height: 1.25rem; stroke-width: 2.2; }
+.progress { height: 2px; margin-top: 1.5rem; background: rgba(255,255,255,.14); border-radius: 2px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--gold); transform-origin: left; transform: scaleX(0); transition: transform 320ms var(--ease-in-out); }
+.thumbs { display: flex; gap: .7rem; overflow-x: auto; padding: 1.25rem .25rem .75rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.3) transparent; scroll-snap-type: x proximity; }
+.thumbs button { flex: none; width: 8.5rem; aspect-ratio: 16 / 9; border-radius: .75rem; overflow: hidden; border: 2px solid transparent; padding: 0; background: #fff; cursor: pointer; opacity: .55; scroll-snap-align: center; transition: opacity 160ms ease, border-color 160ms ease, transform 200ms var(--ease-out); }
+.thumbs button img { width: 100%; height: 100%; object-fit: cover; }
+.thumbs button[aria-current="true"] { opacity: 1; border-color: var(--gold); transform: translateY(-2px); }
+
+/* Imagen ampliada */
+dialog { border: 0; background: transparent; width: 100vw; max-width: none; height: 100dvh; max-height: none; padding: 1rem; margin: 0; color: #fff; }
+dialog[open] { display: grid; grid-template-rows: 1fr auto; place-items: center; gap: 1rem; opacity: 1; transition: opacity 200ms var(--ease-out); }
+@starting-style { dialog[open] { opacity: 0; } }
+dialog::backdrop { background: rgba(4, 16, 38, .92); }
+dialog img { max-width: min(96vw, 1600px); max-height: calc(100dvh - 7.5rem); width: auto; height: auto; border-radius: 1rem; background: #fff; }
+.lb-bar { display: flex; align-items: center; gap: 1rem; }
+.lb-bar .count { font-family: var(--mono); font-size: .8125rem; letter-spacing: .1em; color: var(--on-navy-muted); min-width: 5rem; text-align: center; }
+.lb-close { position: absolute; top: max(1rem, env(safe-area-inset-top)); right: max(1rem, env(safe-area-inset-right)); }
+
+/* Únete */
+.join {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; position: relative; isolation: isolate; overflow: hidden;
+  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%); color: var(--on-navy);
+  border-radius: var(--radius-xl); padding: clamp(1.5rem, 5vw, 4.5rem);
+}
+.join::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 56px 56px; mask-image: linear-gradient(200deg, #000 0%, transparent 70%); -webkit-mask-image: linear-gradient(200deg, #000 0%, transparent 70%);
+}
+.join .eyebrow { color: var(--gold); }
+.join h2 { font-family: var(--display); font-weight: 600; color: #fff; font-size: clamp(2.2rem, 4.6vw, 3.6rem); line-height: 1.03; letter-spacing: -.04em; margin-bottom: 1.25rem; text-wrap: balance; }
+.join h2 em { font-family: var(--serif); font-style: italic; color: var(--gold); font-weight: 400; letter-spacing: -.02em; font-size: 1.08em; }
+.join .lead { color: var(--on-navy-muted); margin-bottom: 2rem; max-width: 34rem; }
+.perks { list-style: none; display: grid; gap: 1rem; }
+.perks li { display: flex; gap: .9rem; align-items: center; font-weight: 500; }
+.perks .tick { width: 2rem; height: 2rem; border-radius: 50%; background: rgba(252,189,21,.14); color: var(--gold); display: grid; place-items: center; flex: none; }
+.perks .tick .icon { width: 1rem; height: 1rem; stroke-width: 2.6; }
+.cta-card { background: var(--surface); color: var(--ink); border-radius: var(--radius-lg); padding: clamp(1.5rem, 3.5vw, 2.5rem); box-shadow: 0 30px 60px -30px rgba(0,0,0,.55); display: flex; flex-direction: column; gap: 1rem; }
+.cta-card .tile { width: 3.25rem; height: 3.25rem; border-radius: 1rem; background: var(--gold); color: var(--navy-deep); display: grid; place-items: center; }
+.cta-card .tile .icon { width: 1.5rem; height: 1.5rem; }
+.cta-card h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 2.6vw, 2rem); line-height: 1.1; color: var(--head); letter-spacing: -.03em; }
+.cta-card p { color: var(--muted); }
+.btn-forms { background: var(--navy); color: #fff; margin-top: .5rem; width: 100%; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn-forms { background: var(--gold); color: var(--navy-deep); } }
+:root[data-theme="dark"] .btn-forms { background: var(--gold); color: var(--navy-deep); }
+
+/* Pie */
+footer { background: var(--navy-deep); color: var(--on-navy); padding-top: clamp(3.5rem, 7vw, 5rem); }
+.foot { display: grid; grid-template-columns: 1.4fr 1.2fr 1fr; gap: clamp(2rem, 5vw, 4rem); padding-bottom: 3rem; }
+.foot img { height: 3.6rem; width: auto; margin-bottom: 1.25rem; }
+.foot p, .foot li { color: var(--on-navy-muted); font-size: .96rem; }
+.foot h4 { font-family: var(--mono); font-weight: 500; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+.foot ul { list-style: none; display: grid; gap: .9rem; }
+.foot li { display: flex; gap: .75rem; align-items: flex-start; overflow-wrap: anywhere; }
+.foot li .icon { color: var(--gold); margin-top: .2rem; }
+.social { display: grid; gap: .7rem; }
+.social a { display: flex; align-items: center; gap: .8rem; min-height: 3rem; padding: .7rem 1rem; border: 1px solid rgba(255,255,255,.18); border-radius: 1rem; text-decoration: none; font-weight: 500; color: #fff; transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms var(--ease-out); }
+.social a:active { transform: scale(.98); }
+.legal { border-top: 1px solid rgba(255,255,255,.1); padding-block: 1.5rem calc(1.5rem + env(safe-area-inset-bottom, 0px)); text-align: center; color: var(--on-navy-muted); font-size: .85rem; }
+
+/* Aparición al hacer scroll: una sola vez, escalonada 60 ms */
+.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out); transition-delay: calc(var(--i, 0) * 60ms); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* Hover solo con puntero fino (en táctil dispara falsos hover) */
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover img { transform: scale(1.04); }
+  .nav-links a:not(.btn-nav):hover { color: #fff; }
+  .nav-links a:not(.btn-nav):hover::after { transform: scaleX(1); }
+  .btn-nav:hover { background: #fff; }
+  .menu-btn:hover { background: rgba(255,255,255,.16); }
+  .btn-primary:hover { background: #fff; }
+  .btn-primary:hover .icon { transform: translateX(3px); }
+  .news-card { transition: transform 240ms var(--ease-out), border-color 160ms ease; }
+  .news-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .news-card:hover time .icon { transform: translateX(4px); }
+  .nav-btn:hover { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
+  .thumbs button:hover { opacity: .9; }
+  .btn-forms:hover { background: var(--gold); color: var(--navy-deep); }
+  .social a:hover { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+  .card { transition: transform 240ms var(--ease-out), border-color 160ms ease; }
+  .card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--gold) 70%, transparent); }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn-forms:hover { background: #fff; } }
+
+/* Movimiento reducido: menos movimiento, no cero (se conservan los fundidos) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .mark-card, .phases g, .badge::before, .skeleton::after { animation: none; }
+  .js .reveal, .news-card, .activity-card { transform: none; }
+  .news-card, .activity-card { animation-duration: 200ms; animation-delay: 0ms; }
+  .js .reveal { transition: opacity 200ms ease; transition-delay: 0ms; }
+  .progress i, .btn, .nav-btn, .btn-nav, .thumbs button { transition-duration: 1ms; }
+}
+
+/* Adaptación */
+@media (max-width: 1020px) {
+  .menu-btn { display: inline-flex; }
+  .nav-links {
+    position: fixed; inset: 0; z-index: -1; flex-direction: column; align-items: stretch; justify-content: center; gap: 0; padding: 6rem var(--gutter-r) 2.5rem var(--gutter-l);
+    background: var(--navy-deep); opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out), visibility 0s linear 220ms;
+  }
+  .nav-links.open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .nav-links li a { display: flex; align-items: center; min-height: 3.5rem; font-family: var(--display); font-weight: 500; font-size: 1.5rem; letter-spacing: -.02em; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .nav-links li:last-child a { border: 0; justify-content: center; margin-top: 1.25rem; font-size: 1.1rem; letter-spacing: 0; }
+  .nav-links a:not(.btn-nav)::after { display: none; }
+  .nav-links li { opacity: 0; transform: translateY(8px); transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out); }
+  .nav-links.open li { opacity: 1; transform: none; }
+  .nav-links.open li:nth-child(2) { transition-delay: 40ms; } .nav-links.open li:nth-child(3) { transition-delay: 80ms; }
+  .nav-links.open li:nth-child(4) { transition-delay: 120ms; } .nav-links.open li:nth-child(5) { transition-delay: 160ms; }
+  .nav-links.open li:nth-child(6) { transition-delay: 200ms; } .nav-links.open li:nth-child(7) { transition-delay: 240ms; }
+  .hero h1 .chip { display: none; }
+}
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+  .hero-mark { order: 2; }
+  .mark-card img { height: 17rem; }
+  .hero-buttons .btn { width: 100%; }
+  .about, .join, .foot, .activity-grid { grid-template-columns: 1fr; }
+  .bento, .news-grid { grid-template-columns: 1fr; }
+  .card.feature, .news-card:first-child { grid-row: auto; min-height: 0; }
+  .card.feature { min-height: 20rem; }
+  .news-card { min-height: 0; }
+  .caption { align-items: flex-start; }
+  .thumbs button { width: 6.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Iconos -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+    <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 11v3a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6"/><path d="M18 6.5a8 8 0 0 1 0 11"/></symbol>
+    <symbol id="i-net" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5 6.5 17M12 11.5l5.5 5.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-userplus" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M19 8v6M16 11h6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="i-insta" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r=".6"/></symbol>
+    <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2 4.2 5 4.5"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16M8 7.8v.1M12 16v-5.5M12 12.5c0-1.4 1-2 2.2-2 1.5 0 2.3.9 2.3 2.5V16"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-done" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol>
+  </defs>
+</svg>
+
+<!-- CABECERA -->
+<header class="site">
+  <div class="nav">
+    <a href="#inicio" class="brand" aria-label="GEENIUS, ir al inicio"><img src="logo-geenius-claro.png" alt="GEENIUS" width="413" height="223"></a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú">
+      <svg class="icon i-open" aria-hidden="true"><use href="#i-menu"/></svg><svg class="icon i-close" aria-hidden="true"><use href="#i-x"/></svg><span id="menu-label">Menú</span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sobre-nosotros">Quiénes somos</a></li>
+      <li><a href="#que-hacemos">Qué Hacemos</a></li>
+      <li><a href="#noticias">Novedades</a></li>
+      <li><a href="#actualidad-energia">Actualidad de la Energía</a></li>
+      <li><a href="#calendario">Calendario</a></li>
+      <li><a href="#inscripcion" class="btn-nav">Únete</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+<!-- INICIO -->
+<section id="inicio" class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="badge">ETSI · Universidad de Sevilla</span>
+      <h1>Impulsando el futuro de la <span class="chip" aria-hidden="true"><svg viewBox="0 0 64 32" preserveAspectRatio="none"><path d="M2 16C12 -2 22 -2 32 16S52 34 62 16"/></svg></span> <em>energía</em></h1>
+      <p class="lead">Asociación de estudiantes orientada a complementar la formación técnica, fomentar la divulgación científica y conectar el talento universitario con el sector energético.</p>
+      <div class="hero-buttons">
+        <a href="#inscripcion" class="btn btn-primary"><svg class="icon" aria-hidden="true"><use href="#i-userplus"/></svg> Únete a GEENIUS</a>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <div class="mark-card"><img src="logo-simplificado-claro.png" alt="Símbolo de GEENIUS: sigma y rayo" width="1854" height="3909" decoding="async" fetchpriority="high"></div>
+    </div>
+  </div>
+  <svg class="phases" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <g>
+      <path class="a" d="M0 60.0 L24 65.4 L48 70.6 L72 75.3 L96 79.3 L120 82.5 L144 84.7 L168 85.9 L192 85.9 L216 84.7 L240 82.5 L264 79.3 L288 75.3 L312 70.6 L336 65.4 L360 60.0 L384 54.6 L408 49.4 L432 44.7 L456 40.7 L480 37.5 L504 35.3 L528 34.1 L552 34.1 L576 35.3 L600 37.5 L624 40.7 L648 44.7 L672 49.4 L696 54.6 L720 60.0 L744 65.4 L768 70.6 L792 75.3 L816 79.3 L840 82.5 L864 84.7 L888 85.9 L912 85.9 L936 84.7 L960 82.5 L984 79.3 L1008 75.3 L1032 70.6 L1056 65.4 L1080 60.0 L1104 54.6 L1128 49.4 L1152 44.7 L1176 40.7 L1200 37.5 L1224 35.3 L1248 34.1 L1272 34.1 L1296 35.3 L1320 37.5 L1344 40.7 L1368 44.7 L1392 49.4 L1416 54.6 L1440 60.0 L1464 65.4 L1488 70.6 L1512 75.3 L1536 79.3 L1560 82.5 L1584 84.7 L1608 85.9 L1632 85.9 L1656 84.7 L1680 82.5 L1704 79.3 L1728 75.3 L1752 70.6 L1776 65.4 L1800 60.0 L1824 54.6 L1848 49.4 L1872 44.7 L1896 40.7 L1920 37.5 L1944 35.3 L1968 34.1 L1992 34.1 L2016 35.3 L2040 37.5 L2064 40.7 L2088 44.7 L2112 49.4 L2136 54.6 L2160 60.0"/>
+      <path class="b" d="M0 82.5 L24 79.3 L48 75.3 L72 70.6 L96 65.4 L120 60.0 L144 54.6 L168 49.4 L192 44.7 L216 40.7 L240 37.5 L264 35.3 L288 34.1 L312 34.1 L336 35.3 L360 37.5 L384 40.7 L408 44.7 L432 49.4 L456 54.6 L480 60.0 L504 65.4 L528 70.6 L552 75.3 L576 79.3 L600 82.5 L624 84.7 L648 85.9 L672 85.9 L696 84.7 L720 82.5 L744 79.3 L768 75.3 L792 70.6 L816 65.4 L840 60.0 L864 54.6 L888 49.4 L912 44.7 L936 40.7 L960 37.5 L984 35.3 L1008 34.1 L1032 34.1 L1056 35.3 L1080 37.5 L1104 40.7 L1128 44.7 L1152 49.4 L1176 54.6 L1200 60.0 L1224 65.4 L1248 70.6 L1272 75.3 L1296 79.3 L1320 82.5 L1344 84.7 L1368 85.9 L1392 85.9 L1416 84.7 L1440 82.5 L1464 79.3 L1488 75.3 L1512 70.6 L1536 65.4 L1560 60.0 L1584 54.6 L1608 49.4 L1632 44.7 L1656 40.7 L1680 37.5 L1704 35.3 L1728 34.1 L1752 34.1 L1776 35.3 L1800 37.5 L1824 40.7 L1848 44.7 L1872 49.4 L1896 54.6 L1920 60.0 L1944 65.4 L1968 70.6 L1992 75.3 L2016 79.3 L2040 82.5 L2064 84.7 L2088 85.9 L2112 85.9 L2136 84.7 L2160 82.5"/>
+      <path class="c" d="M0 37.5 L24 35.3 L48 34.1 L72 34.1 L96 35.3 L120 37.5 L144 40.7 L168 44.7 L192 49.4 L216 54.6 L240 60.0 L264 65.4 L288 70.6 L312 75.3 L336 79.3 L360 82.5 L384 84.7 L408 85.9 L432 85.9 L456 84.7 L480 82.5 L504 79.3 L528 75.3 L552 70.6 L576 65.4 L600 60.0 L624 54.6 L648 49.4 L672 44.7 L696 40.7 L720 37.5 L744 35.3 L768 34.1 L792 34.1 L816 35.3 L840 37.5 L864 40.7 L888 44.7 L912 49.4 L936 54.6 L960 60.0 L984 65.4 L1008 70.6 L1032 75.3 L1056 79.3 L1080 82.5 L1104 84.7 L1128 85.9 L1152 85.9 L1176 84.7 L1200 82.5 L1224 79.3 L1248 75.3 L1272 70.6 L1296 65.4 L1320 60.0 L1344 54.6 L1368 49.4 L1392 44.7 L1416 40.7 L1440 37.5 L1464 35.3 L1488 34.1 L1512 34.1 L1536 35.3 L1560 37.5 L1584 40.7 L1608 44.7 L1632 49.4 L1656 54.6 L1680 60.0 L1704 65.4 L1728 70.6 L1752 75.3 L1776 79.3 L1800 82.5 L1824 84.7 L1848 85.9 L1872 85.9 L1896 84.7 L1920 82.5 L1944 79.3 L1968 75.3 L1992 70.6 L2016 65.4 L2040 60.0 L2064 54.6 L2088 49.4 L2112 44.7 L2136 40.7 L2160 37.5"/>
+    </g>
+  </svg>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section id="sobre-nosotros" class="section">
+  <div class="wrap about">
+    <div class="section-head reveal">
+      <span class="eyebrow">Asociación</span>
+      <h2>Quiénes somos</h2>
+    </div>
+    <div class="statement reveal" style="--i:1">
+      <h3>En una frase</h3>
+      <p>Conectamos la pasión por la <em>ingeniería</em> con los retos reales del sector energético actual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ HACEMOS -->
+<section id="que-hacemos" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Nuestra actividad</span>
+      <h2>Qué Hacemos</h2>
+    </div>
+    <div class="bento">
+      <article class="card feature reveal">
+        <span class="idx">01</span>
+        <div class="tile"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></div>
+        <h3>Formación Práctica</h3>
+        <p>Complementamos lo aprendido en las aulas de la ETSI con talleres técnicos, ponencias de expertos y visitas a instalaciones energéticas clave.</p>
+      </article>
+      <article class="card reveal" style="--i:1">
+        <div class="tile"><svg class="icon" aria-hidden="true"><use href="#i-mega"/></svg></div>
+        <h3>Divulgación Activa</h3>
+        <p>Creamos contenido científico y energético de alto impacto para nuestras redes sociales acercando la energía a todo el mundo.</p>
+      </article>
+      <article class="card reveal" style="--i:2">
+        <div class="tile"><svg class="icon" aria-hidden="true"><use href="#i-net"/></svg></div>
+        <h3>Networking Profesional</h3>
+        <p>Construimos puentes directos entre estudiantes de ingeniería de la energía y empresas líderes del sector para impulsar vuestro futuro laboral.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- NOVEDADES DE LA ASOCIACIÓN -->
+<section id="noticias" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">GEENIUS</span>
+      <h2>Novedades</h2>
+      <p>Actividades, eventos e hitos de nuestra asociación.</p>
+    </div>
+    <div class="activity-grid">
+      <article class="activity-panel reveal">
+        <h3>Próximas actividades</h3>
+        <div class="activity-list" id="lista-proximas" aria-live="polite"></div>
+        <div class="activity-empty" id="vacio-proximas"><span class="glyph"><svg class="icon" aria-hidden="true"><use href="#i-cal"/></svg></span><p>En cuanto haya nuevas convocatorias, publicaremos aquí toda la información para participar e inscribirse.</p></div>
+      </article>
+      <article class="activity-panel reveal" style="--i:1">
+        <h3>Actividades realizadas</h3>
+        <div class="activity-list" id="lista-realizadas" aria-live="polite"></div>
+        <div class="activity-empty" id="vacio-realizadas"><span class="glyph"><svg class="icon" aria-hidden="true"><use href="#i-done"/></svg></span><p>Aquí compartiremos noticias y resúmenes de los eventos realizados por GEENIUS.</p></div>
+      </article>
+    </div>
+  </div>
+  <script>
+    // Lee data/novedades.json (generado por Decap CMS en /admin) y pinta las tarjetas
+    async function cargarNovedades() {
+      const paneles = {
+        proxima: { lista: document.getElementById('lista-proximas'), vacio: document.getElementById('vacio-proximas') },
+        realizada: { lista: document.getElementById('lista-realizadas'), vacio: document.getElementById('vacio-realizadas') }
+      };
+      try {
+        const respuesta = await fetch('data/novedades.json', { cache: 'no-store' });
+        if (!respuesta.ok) throw new Error(`No se pudo cargar novedades.json (${respuesta.status})`);
+        const data = await respuesta.json();
+        const items = Array.isArray(data.actividades) ? data.actividades : [];
+        const fecha = a => new Date(a.fecha || 0).getTime();
+        const grupos = {
+          proxima: items.filter(a => a.tipo === 'proxima').sort((x, y) => fecha(x) - fecha(y)),
+          realizada: items.filter(a => a.tipo === 'realizada').sort((x, y) => fecha(y) - fecha(x))
+        };
+        for (const [tipo, lista] of Object.entries(grupos)) {
+          const { lista: contenedor, vacio } = paneles[tipo];
+          if (!lista.length) continue;
+          vacio.hidden = true;
+          contenedor.replaceChildren(...lista.map((a, i) => crearTarjeta(a, i)));
+        }
+      } catch (error) {
+        console.error('Error al cargar las novedades:', error);
+      }
+    }
+    function crearTarjeta(a, i) {
+      const tarjeta = document.createElement('article');
+      tarjeta.className = 'activity-card';
+      tarjeta.style.setProperty('--i', i);
+      if (a.foto) {
+        const ruta = new URL(a.foto, window.location.href);
+        if (ruta.protocol === 'https:' || ruta.origin === window.location.origin) {
+          const foto = document.createElement('img');
+          foto.src = ruta.href; foto.alt = ''; foto.loading = 'lazy'; foto.decoding = 'async';
+          tarjeta.append(foto);
+        }
+      }
+      const cuerpo = document.createElement('div');
+      cuerpo.className = 'activity-body';
+      const d = new Date(a.fecha);
+      if (!Number.isNaN(d.getTime())) {
+        const time = document.createElement('time');
+        time.dateTime = a.fecha;
+        time.textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'long' }).format(d);
+        cuerpo.append(time);
+      }
+      const titulo = document.createElement('h4');
+      titulo.textContent = a.titulo || 'Actividad';
+      cuerpo.append(titulo);
+      if (a.descripcion) {
+        const p = document.createElement('p');
+        p.textContent = a.descripcion;
+        cuerpo.append(p);
+      }
+      tarjeta.append(cuerpo);
+      return tarjeta;
+    }
+    cargarNovedades();
+  </script>
+</section>
+
+<!-- ACTUALIDAD DE LA ENERGÍA -->
+<section id="actualidad-energia" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Sector</span>
+      <h2>Actualidad de la Energía</h2>
+      <p>Noticias recientes del sector energético en medios especializados. Selección actualizada automáticamente.</p>
+    </div>
+    <p id="news-status" class="news-status" role="status" aria-live="polite">Cargando noticias...</p>
+    <div id="news-grid" class="news-grid" aria-busy="true">
+      <div class="news-card skeleton" aria-hidden="true"></div>
+      <div class="news-card skeleton" aria-hidden="true"></div>
+      <div class="news-card skeleton" aria-hidden="true"></div>
+    </div>
+  </div>
+  <script>
+    async function cargarActualidad() {
+      const status = document.getElementById('news-status');
+      const grid = document.getElementById('news-grid');
+      try {
+        const response = await fetch('noticias.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`No se pudo cargar noticias.json (${response.status})`);
+        const data = await response.json();
+        const noticias = Array.isArray(data.noticias) ? data.noticias : [];
+        if (noticias.length === 0) { grid.replaceChildren(); grid.setAttribute('aria-busy', 'false'); status.textContent = 'No hay noticias recientes disponibles.'; return; }
+
+        const cards = noticias.slice(0, 3).map((noticia, i) => {
+          const articleUrl = new URL(noticia.url, window.location.href);
+          if (articleUrl.protocol !== 'https:') throw new Error('La dirección de una noticia no es segura.');
+
+          const source = document.createElement('p');
+          source.className = 'news-source';
+          source.textContent = noticia.fuente;
+
+          const title = document.createElement('h3');
+          const link = document.createElement('a');
+          link.href = articleUrl.href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = noticia.titulo;
+          title.append(link);
+
+          const date = document.createElement('time');
+          date.dateTime = noticia.fecha;
+          const label = document.createElement('span');
+          label.textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'long' }).format(new Date(noticia.fecha));
+          const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          arrow.setAttribute('class', 'icon');
+          arrow.setAttribute('aria-hidden', 'true');
+          const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+          use.setAttribute('href', '#i-right');
+          arrow.append(use);
+          date.append(label, arrow);
+
+          const card = document.createElement('article');
+          card.className = 'news-card';
+          card.style.setProperty('--i', i);
+          card.append(source, title, date);
+          return card;
+        });
+        grid.replaceChildren(...cards);
+        grid.setAttribute('aria-busy', 'false');
+
+        const updated = new Date(data.actualizado);
+        status.textContent = Number.isNaN(updated.getTime())
+          ? 'Titulares de fuentes especializadas.'
+          : `Última actualización: ${new Intl.DateTimeFormat('es-ES', { dateStyle: 'medium', timeStyle: 'short' }).format(updated)}.`;
+      } catch (error) {
+        console.error('Error al cargar la actualidad de la energía:', error);
+        document.getElementById('news-grid').replaceChildren();
+        status.textContent = 'No se han podido cargar las noticias. Inténtalo más tarde.';
+      }
+    }
+    cargarActualidad();
+  </script>
+</section>
+
+<!-- CALENDARIO -->
+<section id="calendario" class="band section" style="padding-top:clamp(3rem,8vw,6.5rem)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Curso 26/27</span>
+      <h2>Nuestro Calendario</h2>
+      <p>Planificación de eventos y actividades del curso 26/27. Pulsa sobre una imagen para verla a tamaño completo.</p>
+    </div>
+    <div class="carousel reveal" role="region" aria-roledescription="carrusel" aria-label="Calendario de actividades">
+      <div class="stage" id="stage">
+        <button type="button" class="zoom" id="zoom" aria-label="Ampliar imagen del calendario">
+          <img id="slide" src="1.jpg" alt="Calendario GEENIUS 2026/27" width="1600" height="900" decoding="async">
+        </button>
+      </div>
+      <div class="caption">
+        <div class="caption-text" aria-live="polite">
+          <strong id="cap-title"></strong>
+          <span id="cap-meta"></span>
+        </div>
+        <div class="controls">
+          <button class="nav-btn prev" id="prev" type="button" aria-label="Actividad anterior"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+          <button class="nav-btn next" id="next" type="button" aria-label="Actividad siguiente"><svg class="icon" aria-hidden="true"><use href="#i-chev"/></svg></button>
+        </div>
+      </div>
+      <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+      <div class="thumbs" id="thumbs" aria-label="Elegir actividad"></div>
+    </div>
+  </div>
+
+  <dialog id="lightbox" aria-label="Imagen ampliada del calendario">
+    <button class="nav-btn lb-close" id="lb-close" type="button" aria-label="Cerrar"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <img id="lb-img" src="1.jpg" alt="" width="1600" height="900">
+    <div class="lb-bar">
+      <button class="nav-btn" id="lb-prev" type="button" aria-label="Actividad anterior"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <span class="count" id="lb-count"></span>
+      <button class="nav-btn" id="lb-next" type="button" aria-label="Actividad siguiente"><svg class="icon" aria-hidden="true"><use href="#i-chev"/></svg></button>
+    </div>
+  </dialog>
+
+  <script>
+    const SLIDES = [
+      ['Calendario GEENIUS 2026/27', 'Curso 2026/27'],
+      ['Entrevistas de inscripción', '23-25 septiembre 2026'],
+      ['Visita a las cubiertas de la ETSI', 'Octubre 2026'],
+      ['Visita al INTA-CEDEA', '6 noviembre 2026'],
+      ['Taller de tolerancia a la frustración', '12 noviembre 2026'],
+      ['Charla sobre el Apagón de abril 2025', 'Noviembre 2026'],
+      ['Charla sobre el Hidrógeno', '26 noviembre 2026'],
+      ['Visita a la Central Nuclear de Almaraz', 'Enero 2027'],
+      ['Conferencia sobre los CAE', 'Febrero 2027'],
+      ['Charla de orientación con egresados de G.I.E.', 'Marzo 2027'],
+      ['Visita a la Refinería de Huelva', 'Fecha por determinar'],
+      ['Visita a instalación FV', 'Fecha por determinar'],
+      ['Charla sobre Subestaciones Eléctricas', 'Fecha por determinar'],
+      ['Charla sobre Energía y Centros de Datos', 'Fecha por determinar']
+    ];
+    const total = SLIDES.length;
+    let slideActual = 1;
+    const img = document.getElementById('slide');
+    const capTitle = document.getElementById('cap-title');
+    const capMeta = document.getElementById('cap-meta');
+    const thumbs = document.getElementById('thumbs');
+    const bar = document.getElementById('bar');
+    const box = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbCount = document.getElementById('lb-count');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    SLIDES.forEach((s, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', `Ver: ${s[0]}`);
+      const t = document.createElement('img');
+      t.src = 'thumbs/' + (i + 1) + '.jpg'; t.alt = ''; t.loading = 'lazy'; t.width = 480; t.height = 270; t.decoding = 'async';
+      b.append(t);
+      b.addEventListener('click', () => irA(i + 1));
+      thumbs.append(b);
+    });
+
+    const wrapN = n => ((n - 1 + total) % total) + 1;
+    const precargar = n => { const p = new Image(); p.src = wrapN(n) + '.jpg'; };
+
+    function irA(n) {
+      slideActual = wrapN(n);
+      const s = SLIDES[slideActual - 1];
+      const src = slideActual + '.jpg';
+      // Se decodifica la imagen nueva antes de cambiarla: nunca se ve una imagen a medio cargar
+      const pre = new Image();
+      pre.src = src;
+      img.classList.add('fading');
+      Promise.race([pre.decode().catch(() => {}), new Promise(r => setTimeout(r, 1500))]).then(() => {
+        if (wrapN(slideActual) + '.jpg' !== src) return;
+        img.src = src;
+        img.alt = s[0] + ' · ' + s[1];
+        img.classList.remove('fading');
+      });
+      capTitle.textContent = s[0];
+      capMeta.textContent = `${s[1]} · ${String(slideActual).padStart(2, '0')} / ${total}`;
+      bar.style.transform = `scaleX(${slideActual / total})`;
+      [...thumbs.children].forEach((b, i) => {
+        if (i + 1 === slideActual) {
+          b.setAttribute('aria-current', 'true');
+          thumbs.scrollTo({ left: b.offsetLeft - thumbs.clientWidth / 2 + b.clientWidth / 2, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+        } else b.removeAttribute('aria-current');
+      });
+      if (box.open) pintarLightbox();
+      precargar(slideActual + 1); precargar(slideActual - 1);
+    }
+    function cambiarSlide(d) { irA(slideActual + d); }
+    function pintarLightbox() {
+      lbImg.src = slideActual + '.jpg';
+      lbImg.alt = SLIDES[slideActual - 1].join(' · ');
+      lbCount.textContent = `${String(slideActual).padStart(2, '0')} / ${total}`;
+    }
+    document.getElementById('prev').addEventListener('click', () => cambiarSlide(-1));
+    document.getElementById('next').addEventListener('click', () => cambiarSlide(1));
+    document.getElementById('lb-prev').addEventListener('click', () => cambiarSlide(-1));
+    document.getElementById('lb-next').addEventListener('click', () => cambiarSlide(1));
+    document.getElementById('lb-close').addEventListener('click', () => box.close());
+    document.getElementById('zoom').addEventListener('click', () => { pintarLightbox(); box.showModal(); });
+    box.addEventListener('click', e => { if (e.target === box) box.close(); });
+    box.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') cambiarSlide(-1); if (e.key === 'ArrowRight') cambiarSlide(1); });
+    const stage = document.getElementById('stage');
+    stage.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') cambiarSlide(-1); if (e.key === 'ArrowRight') cambiarSlide(1); });
+    let x0 = null;
+    stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', e => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) cambiarSlide(dx < 0 ? 1 : -1);
+      x0 = null;
+    });
+    irA(1);
+  </script>
+</section>
+
+<!-- ÚNETE -->
+<section id="inscripcion" class="section" style="padding-top:clamp(3rem,8vw,6.5rem)">
+  <div class="wrap">
+    <div class="join reveal">
+      <div>
+        <span class="eyebrow">Inscripción abierta</span>
+        <h2>Forma parte de <em>GEENIUS</em></h2>
+        <p class="lead">Si estudias en la ETSI de la Universidad de Sevilla y te apasiona el mundo de la energía, este es tu sitio. ¡Súmate a la asociación!</p>
+        <ul class="perks">
+          <li><span class="tick"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span> Acceso prioritario a eventos y visitas técnicas</li>
+          <li><span class="tick"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span> Participación en proyectos de divulgación científica</li>
+          <li><span class="tick"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span> Contacto directo con profesionales del sector</li>
+        </ul>
+      </div>
+      <div class="cta-card">
+        <div class="tile"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg></div>
+        <h3>¿Listo para unirte?</h3>
+        <p>Rellena nuestro formulario oficial de inscripción a través de Microsoft Forms para formar parte de la asociación.</p>
+        <a href="https://forms.cloud.microsoft/e/VET9WdPk3s?origin=lprLink" target="_blank" rel="noopener" class="btn btn-forms"><svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg> Acceder al Formulario Oficial</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- PIE -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <img src="logo-geenius-claro.png" alt="GEENIUS" width="413" height="223" loading="lazy">
+      <p>Asociación de estudiantes de la ETSI de la Universidad de Sevilla enfocada en la energía, la innovación y la divulgación científica.</p>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> geenius.asociacion@gmail.com</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> ETSI Universidad de Sevilla, Camino de los Descubrimientos, s/n</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Síguenos en Redes</h4>
+      <div class="social">
+        <a href="https://www.instagram.com/geenius.asociacion?stkn=MXF2bmJsOW9rMXRjOA==" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-insta"/></svg> Instagram</a>
+        <a href="https://www.tiktok.com/@geenius.asociacio?_r=1&_t=ZG-9AHHYhZyEfB" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-tiktok"/></svg> TikTok</a>
+        <a href="https://www.linkedin.com/company/geenius-asociacion/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg> LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div class="legal wrap">&copy; 2026 GEENIUS ETSI Sevilla. Todos los derechos reservados.</div>
+</footer>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const menuLabel = document.getElementById('menu-label');
+  const navLinks = document.getElementById('nav-links');
+  function setMenu(open) {
+    navLinks.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    menuLabel.textContent = open ? 'Cerrar' : 'Menú';
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+  }
+  menuBtn.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+  navLinks.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && navLinks.classList.contains('open')) setMenu(false); });
+  window.matchMedia('(min-width: 1021px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+
+  // Aparición escalonada, una sola vez por elemento
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else revealEls.forEach(el => el.classList.add('in'));
+</script>
+</body>
+</html>

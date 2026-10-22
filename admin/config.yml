@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: franciscojoseortegaarjona-png/pruebaclaude   # CAMBIA por usuario/repositorio real de la web
+  branch: main
+  base_url: https://TU-WORKER.TU-SUBDOMINIO.workers.dev   # URL del proxy OAuth (paso 3 de la guía)
+
+locale: es
+publish_mode: simple
+media_folder: images/novedades        # dónde se guardan las fotos en el repositorio
+public_folder: /images/novedades      # ruta con la que se enlazan desde la web
+site_url: https://asociaciongeenius.es
+display_url: https://asociaciongeenius.es
+
+collections:
+  - name: actividades
+    label: Actividades
+    description: Actividades que aparecen en la sección Novedades de la web.
+    files:
+      - name: novedades
+        label: Novedades
+        file: data/novedades.json     # un único JSON que la web lee con fetch
+        fields:
+          - label: Lista de actividades
+            name: actividades
+            widget: list
+            label_singular: actividad
+            summary: "{{fields.tipo}} · {{fields.titulo}}"
+            fields:
+              - { label: Título, name: titulo, widget: string }
+              - { label: Fecha, name: fecha, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - label: Tipo
+                name: tipo
+                widget: select
+                options:
+                  - { label: Próxima, value: proxima }
+                  - { label: Realizada, value: realizada }
+                default: proxima
+              - { label: Descripción, name: descripcion, widget: text, required: false }
+              - { label: Foto, name: foto, widget: image, required: false }
