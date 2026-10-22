@@ -192,6 +192,25 @@ header.site::before {
 .statement p { font-family: var(--display); font-weight: 500; font-size: clamp(1.7rem, 3.5vw, 3.1rem); line-height: 1.14; letter-spacing: -.03em; color: var(--head); text-wrap: pretty; }
 .statement p em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--gold-ink); letter-spacing: -.01em; }
 
+
+/* Textos largos y fotos */
+.story { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; margin-top: clamp(2.5rem, 5vw, 4rem); }
+.prose { display: grid; gap: 1.25rem; max-width: 40rem; }
+.prose p { color: var(--muted); font-size: 1.0625rem; line-height: 1.7; }
+.prose h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.15; letter-spacing: -.03em; color: var(--head); margin-top: .75rem; }
+.photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-xl); box-shadow: var(--shadow); }
+.story .photo { position: sticky; top: 6.5rem; }
+.method { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.method .photo { margin-top: 2rem; }
+.pillars { list-style: none; display: grid; }
+.pillars li { display: grid; gap: .5rem; padding-block: 1.5rem; border-top: 1px solid var(--line); }
+.pillars li:last-child { border-bottom: 1px solid var(--line); }
+.pillars strong { font-family: var(--display); font-weight: 600; font-size: clamp(1.25rem, 2vw, 1.5rem); letter-spacing: -.03em; line-height: 1.15; color: var(--head); }
+.pillars span { color: var(--muted); max-width: 38rem; }
+.subhead { font-family: var(--mono); font-weight: 500; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: clamp(3rem, 6vw, 4.5rem) 0 1.25rem; }
+.card-photo { margin: 0 0 1.75rem; }
+.card-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-lg); }
+
 /* Qué hacemos: bento asimétrico */
 .bento { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 1.25rem; }
 .card {
@@ -394,7 +413,8 @@ footer { background: var(--navy-deep); color: var(--on-navy); padding-top: clamp
   .hero-mark { order: 2; }
   .mark-card img { height: 17rem; }
   .hero-buttons .btn { width: 100%; }
-  .about, .join, .foot, .activity-grid { grid-template-columns: 1fr; }
+  .about, .join, .foot, .activity-grid, .story, .method { grid-template-columns: 1fr; }
+  .story .photo { position: static; }
   .bento, .news-grid { grid-template-columns: 1fr; }
   .card.feature, .news-card:first-child { grid-row: auto; min-height: 0; }
   .card.feature { min-height: 20rem; }
@@ -477,14 +497,27 @@ footer { background: var(--navy-deep); color: var(--on-navy); padding-top: clamp
 
 <!-- SOBRE NOSOTROS -->
 <section id="sobre-nosotros" class="section">
-  <div class="wrap about">
-    <div class="section-head reveal">
-      <span class="eyebrow">Asociación</span>
-      <h2>Quiénes somos</h2>
+  <div class="wrap">
+    <div class="about">
+      <div class="section-head reveal">
+        <span class="eyebrow">Asociación</span>
+        <h2>Quiénes somos</h2>
+      </div>
+      <div class="statement reveal" style="--i:1">
+        <h3>En una frase</h3>
+        <p>Conectamos la pasión por la <em>ingeniería</em> con los retos reales del sector energético actual.</p>
+      </div>
     </div>
-    <div class="statement reveal" style="--i:1">
-      <h3>En una frase</h3>
-      <p>Conectamos la pasión por la <em>ingeniería</em> con los retos reales del sector energético actual.</p>
+    <div class="story">
+      <div class="prose reveal">
+        <p>GEENIUS nació con un propósito muy claro: pasar a la acción desde el rigor académico. Nuestra historia comenzó el 5 de junio de 2026, impulsados por una convicción que compartíamos todos los fundadores: dar al sector energético el hueco que se merece dentro y fuera de la universidad.</p>
+        <p>Por ello, con el firme respaldo de la comunidad académica y el asesoramiento continuo de profesores de la ETSI, decidimos dar un paso adelante. El 6 de julio de 2026 solicitamos nuestro registro oficial en la Junta de Andalucía, consolidándonos como un proyecto serio y estructurado. Surgimos con la vocación de crear un espacio que complemente la excelencia académica de la carrera, sirviendo como un puente profesional para acercar a los estudiantes a la universidad y al tejido del sector energético.</p>
+        <h3>Nuestra Comunidad Hoy</h3>
+        <p>Nuestra filosofía proactiva (&laquo;La acción es nuestro baluarte&raquo;) nos permitió reunir a 35 socios comprometidos apenas unas semanas después de nacer. La sólida base de nuestro proyecto y las ganas de transformar el futuro energético han hecho que nuestro crecimiento sea imparable. A día de hoy somos cerca de 100 socios, conformando una red de talento universitario que, guiada por la experiencia docente y el rigor técnico, trabaja unida para hacer que las ideas compitan al más alto nivel.</p>
+      </div>
+      <figure class="photo reveal" style="--i:1">
+        <img src="images/comunidad-gie-1600.jpg" srcset="images/comunidad-gie-800.jpg 800w, images/comunidad-gie-1600.jpg 1600w" sizes="(max-width: 860px) 100vw, 40vw" width="1600" height="1200" alt="Dos socios de GEENIUS de espaldas con la camiseta &laquo;Engineered by GIE, Seville 2026&raquo;" loading="lazy" decoding="async">
+      </figure>
     </div>
   </div>
 </section>
@@ -496,8 +529,27 @@ footer { background: var(--navy-deep); color: var(--on-navy); padding-top: clamp
       <span class="eyebrow">Nuestra actividad</span>
       <h2>Qué Hacemos</h2>
     </div>
+    <div class="method">
+      <div class="reveal">
+        <div class="prose">
+          <h3>¿Cómo lo hacemos?</h3>
+          <p>En GEENIUS creamos los entornos necesarios para que nuestros miembros puedan desarrollar sus conceptos y llevarlos a la práctica.</p>
+          <p>Nuestra metodología se basa en el dinamismo, la rigurosidad y el aprendizaje continuo a través de:</p>
+        </div>
+        <figure class="photo">
+          <img src="images/visita-tecnica-1600.jpg" srcset="images/visita-tecnica-800.jpg 800w, images/visita-tecnica-1600.jpg 1600w" sizes="(max-width: 860px) 100vw, 40vw" width="1600" height="1200" alt="Socios de GEENIUS durante una visita técnica, observando un fotobiorreactor de microalgas en un laboratorio" loading="lazy" decoding="async">
+        </figure>
+      </div>
+      <ul class="pillars">
+        <li class="reveal" style="--i:1"><strong>Proyectos tecnológicos propios</strong><span>Desarrollamos iniciativas reales, tangibles y técnicamente viables, como nuestra Microgrid o el estudio previo fotovoltaico, garantizando siempre un enfoque profesional y aplicable a la industria.</span></li>
+        <li class="reveal" style="--i:2"><strong>Conexión con el sector</strong><span>Organizamos visitas técnicas a instalaciones punteras y masterclass con profesionales en activo, alineando nuestros conocimientos teóricos con las exigencias reales del mercado laboral.</span></li>
+        <li class="reveal" style="--i:3"><strong>Crecimiento integral</strong><span>Fomentamos el networking con empresas de primer nivel y ofrecemos formación complementaria que va más allá del plan de estudios tradicional.</span></li>
+      </ul>
+    </div>
+    <h3 class="subhead reveal">Nuestras áreas</h3>
     <div class="bento">
       <article class="card feature reveal">
+        <figure class="card-photo"><img src="images/formacion-practica-1600.jpg" srcset="images/formacion-practica-800.jpg 800w, images/formacion-practica-1600.jpg 1600w" sizes="(max-width: 860px) 100vw, 40vw" width="1600" height="1200" alt="Dos estudiantes trasladando un panel fotovoltaico durante una visita a un hangar con un motor de avión" loading="lazy" decoding="async"></figure>
         <span class="idx">01</span>
         <div class="tile"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></div>
         <h3>Formación Práctica</h3>
