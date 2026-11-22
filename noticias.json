@@ -1,23 +1,23 @@
 {
-  "actualizado": "2026-11-21T14:29:43.506298+00:00",
+  "actualizado": "2026-11-22T14:25:55.114566+00:00",
   "noticias": [
+    {
+      "titulo": "El Gobierno aprueba el decreto de centros de datos para evitar un alza de 5.000 millones en la factura",
+      "url": "https://elperiodicodelaenergia.com/el-gobierno-aprueba-el-decreto-de-centros-de-datos-para-evitar-un-alza-de-5-000-millones-en-la-factura/",
+      "fuente": "El Periódico de la Energía",
+      "fecha": "2026-11-21T13:35:00+00:00"
+    },
+    {
+      "titulo": "VÍDEO | Prueba del Citroën Ë-C5 Aircross: confort en clave cero emisiones",
+      "url": "https://elperiodicodelaenergia.com/prueba-citroen-e-c5-aircross-consumo-autonomia-precio/",
+      "fuente": "El Periódico de la Energía",
+      "fecha": "2026-11-21T13:33:00+00:00"
+    },
     {
       "titulo": "Ceres Power busca acelerar la fabricación industrial de sus pilas de óxido sólido con una tecnología orientada a los centros de datos",
       "url": "https://elperiodicodelaenergia.com/ceres-power-busca-acelerar-la-fabricacion-industrial-de-sus-pilas-de-oxido-solido-con-una-tecnologia-orientada-a-los-centros-de-datos/",
       "fuente": "El Periódico de la Energía",
       "fecha": "2026-11-20T23:32:00+00:00"
-    },
-    {
-      "titulo": "StackAEM, el proyecto español de diseño de electrolizadores que reducirá el coste de producir hidrógeno renovable",
-      "url": "https://elperiodicodelaenergia.com/stackaem-el-proyecto-espanol-de-diseno-de-electrolizadores-que-reducira-el-coste-de-producir-hidrogeno-renovable/",
-      "fuente": "El Periódico de la Energía",
-      "fecha": "2026-11-20T23:03:00+00:00"
-    },
-    {
-      "titulo": "El GTA VI también se electrifica: coches de batería, cargadores y hasta un buscador para encontrarlos",
-      "url": "https://elperiodicodelaenergia.com/gta-vi-cargadores-coches-electricos/",
-      "fuente": "El Periódico de la Energía",
-      "fecha": "2026-11-20T23:02:00+00:00"
     }
   ]
 }
